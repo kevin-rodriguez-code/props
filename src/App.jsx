@@ -1,6 +1,7 @@
 import './App.css'
 import { useState } from 'react';
 import Task from './components/Task';
+import AddTaskForm from './components/AddTaskForm';
 
 const App = () => {
   const [tasks, setTasks] = useState([
@@ -21,9 +22,20 @@ const App = () => {
   
   }
 
+  function addTask(text) {
+    const newTask = {id:tasks.length +1, text, completed:false}
+    setTasks([...tasks, newTask])
+  }
+
+  const deleteTask = (taskId) => {
+    setTasks(tasks.filter(task => task.id !== taskId))
+  }
+
   return (
     <>
-    <Task tasks = {tasks} handleChange = {handleClick}/>
+    <h1>Lista de Tareas</h1>
+    <AddTaskForm addTask = {addTask}/>
+    <Task tasks = {tasks} handleChange = {handleClick} deleteTask={deleteTask}/>
     
     </>
   );
